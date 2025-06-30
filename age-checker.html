@@ -4,10 +4,10 @@
         <title>Age Checker</title>
     </head>
     <body>
-        <h2> Age Checker></h2>
+        <h2> Age Checker</h2>
         <label for="birthYear">Enter Your Birth Year:</label>
         <input type="number" id="birthYear" placeholder="e.g. 2000">
-        <button onclick="clickAge()">Check Age</button>
+        <button onclick="checkAge()">Check Age</button>
 
         <p id="result"></p>
         <script>
@@ -18,19 +18,31 @@
             // step2: Get birth year from input
             const birthYear = document.getElementById("birthYear").value;
             // step 3: Validate input
-            if (birthYear === ""){
+            if (birthYear.trim() === ""){ //trim helps to avoid users typing just spaces
                 document.getElementById("result").innerText = "Please enter your birth year.";
                 return;
+            } 
+            if (birthYear > currentYear || birthYear < 1900) {
+                document.getElementById("result").innerText = "Please enter a valid birth year.";
+              return;
             }
-
             const age = currentYear - birthYear;
 
             //step 4: Decide age Category
             let message = "";
             if (age < 13){
-                message = `you are 4{age} years old -> child.`;
-            }
-           }
+                message = `You are ${age} years old -> child.`; 
+            } else if (age >= 13 && age <=19){
+                message = `You are ${age} years old -> Teenager.`;
+            } else if (age >=20 && age <=59 ){
+                message = `You are ${age} years old -> Adult.`;
+            } else
+                message = `You are ${age} years old -> Senior.`;
+           
+
+           //step 5: show result
+           document.getElementById("result").innerText = message;
+        }
         </script>
     </body>
 </html>
